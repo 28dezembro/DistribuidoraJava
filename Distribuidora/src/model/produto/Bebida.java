@@ -8,7 +8,7 @@ public class Bebida extends Produto {
         this.alcoolico = alcoolico;
     }
 
-    public static Bebida getBebida(String nome, String categoria, float preco, int codigo, int qtd, boolean alcoolico){
+    public static Bebida cadastrarBebida(String nome, String categoria, float preco, int codigo, int qtd, boolean alcoolico){
         return new Bebida(nome, categoria, preco, codigo, qtd, alcoolico);
     }
 

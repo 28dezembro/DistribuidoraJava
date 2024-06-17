@@ -5,7 +5,7 @@ import java.util.Scanner;
 import controller.DistribuidoraController;
 import model.produto.*;
 import model.usuario.*;
-import util.Util;
+import model.*;
 import view.*;
 
 public class App {
@@ -16,7 +16,7 @@ public class App {
 
         Scanner in = new Scanner(System.in);
 
-        DistribuidoraController controller = new DistribuidoraController(new ArrayList<Produto>(), new ArrayList<Usuario>());
+        DistribuidoraController controller = new DistribuidoraController(new ArrayList<Produto>(), new ArrayList<Usuario>(), new ArrayList<Venda>());
 
         //Populando o sistema
         controller.cadastrarProduto("Campo Largo", "Vinho", 14.90f, 1, true);
@@ -40,22 +40,15 @@ public class App {
                 if (usuarioSelecionado.getSenha().equals(senha)) {
                     try {
                         if (usuarioSelecionado.isAdmin()) {
-                            AdminView.main(args, in, controller, (Admin) usuarioSelecionado);;
+                            AdminView.main(args, in, controller, (Admin) usuarioSelecionado);
                         }else{
-                            UsuarioComumView.main(args, in, controller, (UsuarioComum) usuarioSelecionado);;
+                            UsuarioComumView.main(args, in, controller, (UsuarioComum) usuarioSelecionado);
                         }    
                     } catch (InputMismatchException e) {
                         throw new Exception("Erro ao selecionar usuário" + e.getMessage());
                     }
                 }
             }
-
         }
-
-
-
-        System.out.println(controller);
-
-
     }
 }

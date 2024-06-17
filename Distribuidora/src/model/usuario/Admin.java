@@ -7,7 +7,7 @@ public class Admin extends Usuario {
         super(nomeCompleto, login, senha, admin);
     }
 
-    public static Admin getAdmin(String nomeCompleto, String login, String senha){
+    public static Admin cadastrarAdmin(String nomeCompleto, String login, String senha){
         return new Admin(nomeCompleto, login, senha, true);
     }
 

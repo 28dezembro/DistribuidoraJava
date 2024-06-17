@@ -1,5 +1,6 @@
 package model.produto;
 
+
 public abstract class Produto {
     protected String nome, categoria;
     protected float preco;
@@ -13,9 +14,9 @@ public abstract class Produto {
         this.qtd = qtd;
     }
 
-    public boolean reduzirEstoque(){
+    public boolean reduzirEstoque(int quantidade){
         if (qtd > 0) {
-            qtd--;
+            qtd -= quantidade;
             return true;
         }
         return false;
@@ -61,9 +62,8 @@ public abstract class Produto {
         this.qtd = qtd;
     }
 
-    public String produtoDisponivel(){
-        return categoria + " " + nome + ":"
-        + "\nPreço: " + preco;
+    public String imprimeProduto(){
+        return categoria + " " + nome + ":" + " R$" + preco;
     }
 
     @Override
