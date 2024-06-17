@@ -13,6 +13,14 @@ public abstract class Produto {
         this.qtd = qtd;
     }
 
+    public boolean reduzirEstoque(){
+        if (qtd > 0) {
+            qtd--;
+            return true;
+        }
+        return false;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -55,9 +63,7 @@ public abstract class Produto {
 
     public String produtoDisponivel(){
         return categoria + " " + nome + ":"
-        + "\nPreço: " + preco
-        + "\nQuantidade Disponível: " + qtd
-        + "\nCódigo do Produto: " + codigo;
+        + "\nPreço: " + preco;
     }
 
     @Override

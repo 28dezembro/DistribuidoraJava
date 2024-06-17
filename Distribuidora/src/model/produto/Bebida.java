@@ -22,9 +22,7 @@ public class Bebida extends Produto {
 
     public String produtoDisponivel(){
         return categoria + " " + nome + ":"
-        + "\nPreço: " + preco
-        + "\nQuantidade Disponível: " + qtd
-        + "\nCódigo do Produto: " + codigo;
+        + "\nPreço: " + preco;
     }
 
     @Override

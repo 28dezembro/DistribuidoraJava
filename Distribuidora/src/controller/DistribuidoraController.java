@@ -40,12 +40,21 @@ public class DistribuidoraController {
         }
     }
 
-    public void adicionarAoCarrinho(Produto produto){
-        if (produto.getQtd() > 0) {
-
+    public Produto adicionarAoCarrinho(Produto produto) throws Exception{
+        try {
+            Produto produtoEstoque = buscarProduto(produto.getNome()).get();
+            if (produtoEstoque.getQtd() >= produto.getQtd()) {
+                produtoEstoque.reduzirEstoque();
+                return produto;
+            }else{
+                throw new Exception("Quantidade indisponível");
+            }
+        } catch (Exception e) {
+            throw new Exception("Erro ao adicionar produto ao carrinho: " + e.getMessage());
         }
+       
     }
-
+    
     public Optional<Usuario> buscarUsuario(String login){
         return usuarios.stream()
         .filter(u -> u.getLogin().equals(login))

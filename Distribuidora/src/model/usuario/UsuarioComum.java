@@ -70,8 +70,5 @@ public class UsuarioComum extends Usuario{
     public String toString() {
         return "UsuarioComum ["+super.toString()+"endereco=" + endereco + ", telefone=" + telefone + ", ddd=" + ddd + ", carrinho=" + carrinho + "]";
     }
-
-    
-
     
 }
