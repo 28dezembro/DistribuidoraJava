@@ -22,6 +22,18 @@ public class UsuarioComum extends Usuario{
         return new UsuarioComum(nomeCompleto, login, senha, false, endereco, telefone, ddd, new ArrayList<>());
     }
 
+    public void adicionarAoCarrinho(Produto produto){
+        carrinho.add(produto);
+    }
+
+    public void removerDoCarrinho(Produto produto){
+        carrinho.remove(produto);
+    }
+
+    public void limparCarrinho(){
+        carrinho.clear();
+    }
+
     public String getEndereco() {
         return endereco;
     }

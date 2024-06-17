@@ -53,6 +53,13 @@ public abstract class Produto {
         this.qtd = qtd;
     }
 
+    public String produtoDisponivel(){
+        return categoria + " " + nome + ":"
+        + "\nPreço: " + preco
+        + "\nQuantidade Disponível: " + qtd
+        + "\nCódigo do Produto: " + codigo;
+    }
+
     @Override
     public String toString() {
         return "Produto [nome=" + nome + ", categoria=" + categoria + ", preco=" + preco + ", codigo=" + codigo + ", qtd=" + qtd + "]";

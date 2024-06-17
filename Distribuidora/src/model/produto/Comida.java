@@ -10,6 +10,13 @@ public class Comida extends Produto {
         return new Comida(nome, categoria, preco, codigo, qtd);
     }
 
+    public String produtoDisponivel(){
+        return categoria + " " + nome + ":"
+        + "\nPreço: " + preco
+        + "\nQuantidade Disponível: " + qtd
+        + "\nCódigo do Produto: " + codigo;
+    }
+
     @Override
     public String toString() {
         return "Comida ["+ super.toString()+"]";

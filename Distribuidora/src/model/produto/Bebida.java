@@ -20,6 +20,13 @@ public class Bebida extends Produto {
         this.alcoolico = alcoolico;
     }
 
+    public String produtoDisponivel(){
+        return categoria + " " + nome + ":"
+        + "\nPreço: " + preco
+        + "\nQuantidade Disponível: " + qtd
+        + "\nCódigo do Produto: " + codigo;
+    }
+
     @Override
     public String toString() {
         return "Bebida [ "+ super.toString() + " alcoolico=" + alcoolico + "]";

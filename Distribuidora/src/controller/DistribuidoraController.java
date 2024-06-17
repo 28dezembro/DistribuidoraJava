@@ -40,8 +40,10 @@ public class DistribuidoraController {
         }
     }
 
-    public void venderProduto(){
+    public void adicionarAoCarrinho(Produto produto){
+        if (produto.getQtd() > 0) {
 
+        }
     }
 
     public Optional<Usuario> buscarUsuario(String login){
@@ -58,8 +60,24 @@ public class DistribuidoraController {
 
     public void cadastrarUsuario(String nomeCompleto, String login, String senha){
         if (!buscarUsuario(login).isPresent()) {
-            usuarios.add(UsuarioAdmin.getUsuarioAdmin(nomeCompleto, login, senha));
+            usuarios.add(Admin.getAdmin(nomeCompleto, login, senha));
         }
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
     @Override
