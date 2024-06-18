@@ -22,7 +22,7 @@ public class App {
         controller.cadastrarProduto("Campo Largo", "Vinho", 14.90f, 1, true);
         controller.cadastrarProduto("Passatempo", "Bolacha", 4.90f, 1);
         
-        controller.cadastrarUsuario("André Lucas", "Andre", "123123");
+        controller.cadastrarUsuario("André Lucas", "a", "a");
         controller.cadastrarUsuario("André lucas", "Andre", "null", "rua tchurusbago", 998998989, 41); //teste pra ver se inclui usuario duplicado (mesmo login)
         controller.cadastrarUsuario("Marcão", "Marcos", "123", "rua tchurusbago", 998998989, 41);
         controller.cadastrarUsuario("thierry","tito","1234");
@@ -34,7 +34,7 @@ public class App {
 
             if (controller.buscarUsuario(usuario).isPresent()) {
                 usuarioSelecionado = controller.buscarUsuario(usuario).get();
-                System.out.println("\nOlá: " + usuarioSelecionado.getNomeCompleto()
+                System.out.println("\nOlá, " + usuarioSelecionado.getNomeCompleto()
                 + "\nDigite sua senha:");
                 senha = in.nextLine();
 

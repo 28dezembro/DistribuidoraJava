@@ -19,7 +19,7 @@ import model.produto.Produto;
 import model.usuario.Admin;
 
 public class AdminView {
-    public static void main(String[] args, Scanner in, DistribuidoraController controller, Admin usuarioSelecionado) {
+    public static void main(String[] args, Scanner in, DistribuidoraController controller, Admin usuarioSelecionado) throws Exception {
         boolean menu = true;
         int adminopcao;
     
@@ -51,8 +51,7 @@ public class AdminView {
                     switch (opcaoAlterar) {
                         case 1:
                         System.out.println("Digite a nova senha:");
-                        String novaSenha = in.nextLine();
-                        controller.alterarSenhaUsuario(loginUsuario, novaSenha);
+                        controller.alterarSenhaUsuario(loginUsuario, in.nextLine());
                             break;
                         case 2:
                         System.out.println("Digite o novo tipo (admin ou comum):");

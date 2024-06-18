@@ -16,6 +16,8 @@ public abstract class Produto {
         this.ativo = true;
     }
 
+    public abstract Produto copiaProduto(Produto produto);
+
     public boolean reduzirEstoque(int quantidade){
         if (qtd > 0) {
             qtd -= quantidade;
@@ -23,11 +25,11 @@ public abstract class Produto {
         }
         return false;
     }
+
     public void aumentarEstoque(int quantidade) {
         this.qtd += quantidade;
     }
     
-
     public String getNome() {
         return nome;
     }

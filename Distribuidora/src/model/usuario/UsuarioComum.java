@@ -4,37 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Venda;
-import model.produto.*;
 
 public class UsuarioComum extends Usuario{
     protected String endereco;
     protected int telefone, ddd;
-    protected List<Produto> carrinho;
     protected List<Venda> pedidos;
 
-    public UsuarioComum(String nomeCompleto, String login, String senha, boolean admin, String endereco, int telefone, int ddd, List<Produto> carrinho, List<Venda> pedidos) {
+    public UsuarioComum(String nomeCompleto, String login, String senha, boolean admin, String endereco, int telefone, int ddd, List<Venda> pedidos) {
         super(nomeCompleto, login, senha, admin);
         this.endereco = endereco;
         this.telefone = telefone;
         this.ddd = ddd;
-        this.carrinho = carrinho;
         this.pedidos = pedidos;
     }
 
     public static UsuarioComum cadastrarUsuarioComum(String nomeCompleto, String login, String senha, String endereco, int telefone, int ddd){
-        return new UsuarioComum(nomeCompleto, login, senha, false, endereco, telefone, ddd, new ArrayList<>(), new ArrayList<>());
-    }
-
-    public void adicionarAoCarrinho(Produto produto){
-        carrinho.add(produto);
-    }
-
-    public void removerDoCarrinho(Produto produto){
-        carrinho.remove(produto);
-    }
-
-    public void limparCarrinho(){
-        carrinho.clear();
+        return new UsuarioComum(nomeCompleto, login, senha, false, endereco, telefone, ddd, new ArrayList<>());
     }
 
     public String getEndereco() {
@@ -61,14 +46,6 @@ public class UsuarioComum extends Usuario{
         this.ddd = ddd;
     }
 
-    public List<Produto> getCarrinho() {
-        return carrinho;
-    }
-
-    public void setCarrinho(List<Produto> carrinho) {
-        this.carrinho = carrinho;
-    }
-
     public List<Venda> getPedidos() {
         return pedidos;
     }
@@ -79,7 +56,7 @@ public class UsuarioComum extends Usuario{
 
     @Override
     public String toString() {
-        return "UsuarioComum ["+super.toString()+"endereco=" + endereco + ", telefone=" + telefone + ", ddd=" + ddd + ", carrinho=" + carrinho + "]";
+        return "UsuarioComum ["+super.toString()+"endereco=" + endereco + ", telefone=" + telefone + ", ddd=" + ddd + "]";
     } 
     
 }

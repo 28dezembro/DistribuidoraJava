@@ -47,7 +47,7 @@ public class Venda {
 
     @Override
     public String toString() {
-        return "Venda [codigoVenda=" + codigo + ", produtos=" + produtos + ", usuario=" + usuario + "]";
+        return "Venda [codigo=" + codigo + ", produtos=" + produtos + ", usuario=" + usuario + ", valorVenda=" + valorVenda + "]";
     }
 
 }

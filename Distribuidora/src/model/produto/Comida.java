@@ -10,6 +10,12 @@ public class Comida extends Produto {
         return new Comida(nome, categoria, preco, codigo, qtd);
     }
 
+    @Override
+    public Comida copiaProduto(Produto produto){
+        Comida comida = (Comida) produto;
+        return new Comida(comida.getNome(), comida.getCategoria(), comida.getPreco(), comida.getCodigo(), comida.getQtd());
+    }
+
     public String produtoDisponivel(){
         return categoria + " " + nome + ":"
         + "\nPreço: " + preco;

@@ -12,6 +12,12 @@ public class Bebida extends Produto {
         return new Bebida(nome, categoria, preco, codigo, qtd, alcoolico);
     }
 
+    @Override
+    public Bebida copiaProduto(Produto produto){
+        Bebida bebida = (Bebida) produto;
+        return new Bebida(bebida.getNome(), bebida.getCategoria(), bebida.getPreco(), bebida.getCodigo(), bebida.getQtd(), bebida.isAlcoolico());
+    }
+
     public boolean isAlcoolico() {
         return alcoolico;
     }

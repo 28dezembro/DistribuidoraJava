@@ -1,10 +1,9 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import controller.DistribuidoraController;
-import model.produto.Bebida;
-import model.produto.Comida;
 import model.produto.Produto;
 import model.usuario.UsuarioComum;
 
@@ -13,19 +12,17 @@ public class UsuarioComumView {
     public static void main(String[] args, Scanner in, DistribuidoraController controller, UsuarioComum usuarioSelecionado) throws Exception{
         boolean menu = true;
         int opcoes;
-        String produtoBuscar, categoria;
+        String produtoBuscar;
         Produto produtoAdicionar;
+        List<Produto> carrinho = new ArrayList<>();
 
-        System.out.println("\nLogin feito com sucesso usuario, " + usuarioSelecionado.getNomeCompleto());
-        System.out.println("------------Seja Bem-Vindo a distribuidora dos Guri------------");
+        System.out.println("Login feito com sucesso, " + usuarioSelecionado.getNomeCompleto());
 
         while (menu) {
             System.out.println("\nSelecione o que deseja fazer: "
             + "\n1 - Buscar produtos"
             + "\n2 - Visualizar carrinho"
-            + "\n3 - Meus pedidos"
-            + "\n4 - Listar Categoria's"
-            + "\n0 - Sair");
+            + "\n3 - Meus pedidos");
             opcoes = in.nextInt();
             in.nextLine(); // consome caracter
 
@@ -45,7 +42,7 @@ public class UsuarioComumView {
                                 System.out.println("Qual a quantidade desejada? (Quantidade disponível: "+ produtoAdicionar.getQtd() +")");
 
                                 try {
-                                    usuarioSelecionado.getCarrinho().add(controller.adicionarAoCarrinho(produtoAdicionar, in.nextInt()));
+                                    carrinho.add(controller.adicionarAoCarrinho(produtoAdicionar, in.nextInt()));
                                     System.out.println(produtoAdicionar.getNome() + " adicionado ao carrinho com sucesso!");
                                 } catch (Exception e) {
                                     System.out.println("\nErro ao adicionar ao carrinho " + e.getMessage());
@@ -55,73 +52,49 @@ public class UsuarioComumView {
                             System.out.println("Produto não encontrado ou sem estoque no momento.");
                         }
                     }
-                break;
+                    break;
 
                 case 2:
-                    if (usuarioSelecionado.getCarrinho().isEmpty()) {
+                    if (carrinho.isEmpty()) {
                         System.out.println("\nNão há nenhum item no seu carrinho");
+                        break;
                     }
 
                     System.out.println("\n");
-                    for (Produto produto : usuarioSelecionado.getCarrinho()) {
-                        System.out.println(produto.imprimeProduto());
+                    for (Produto produtoCarrinho : carrinho) {
+                        System.out.println(produtoCarrinho.imprimeProduto());
                     }
 
                     System.out.println("Deseja fechar o carrinho e finalizar a venda?(S/N)");
-                    if (in.nextLine().equalsIgnoreCase("S")) {
-                        controller.finalizarVenda(usuarioSelecionado.getCarrinho(), usuarioSelecionado);
-                    }
-                    
-                break;
+                        if (in.nextLine().equalsIgnoreCase("S")) {
+                            controller.finalizarVenda(carrinho, usuarioSelecionado);
+                            
+                        }
+                    break;
 
                 case 3:
-                    System.out.println(controller.buscarVenda(1));
-                    
-                break;
+                    System.out.println(usuarioSelecionado.getPedidos());
+                    break;
                     
                 case 4:
-                    System.out.println("Qual Categoria você deseja Listar(Comida ou Bebida)?");
-                    categoria = in.nextLine();
+                    carrinho.clear();
+                    break;
 
-                    if (categoria.equalsIgnoreCase("Comida") ) {
-                        List<Comida> comidas = controller.listarComidas();
-                        System.out.println("\nAqui está as Comidas ativas em estoque:");
-                            for (Comida comida : comidas) {
-                                if (comida.getQtd() > 0) {
-                                    System.out.println("Nome: " + comida.getNome());
-                                    System.out.println("Quantidade Disponível: " + comida.getQtd());
-                                    System.out.println("Valor: R$ " + comida.getPreco());
-                                    System.out.println();
-                                }
-                            }
-                    }else if(categoria.equalsIgnoreCase("Bebida")){
-                        List<Bebida> bebidas = controller.listarBebidas();
-                        System.out.println("\nAqui está as Bebidas ativas em estoque:");
-                            for (Bebida bebida : bebidas) {
-                                if (bebida.getQtd() > 0) {
-                                    System.out.println("Nome: " + bebida.getNome());
-                                    System.out.println("Quantidade Disponível: " + bebida.getQtd());
-                                    System.out.println("Valor: R$ " + bebida.getPreco());
-                                    System.out.println("Alcoólico: " + bebida.isAlcoolico());
-                                    System.out.println();
-                                }
-                            }
-                    }else {
-                        System.out.println("Categoria inválida!");
-                    }
-                break;
+                case 5:
+                    
+                    break;
 
-                case 0:
-                    System.out.println("Sessão encerrada.");
-                    menu = false;
-                break;
+                case 6:
+                    
+                    break;
 
                 default:
-                    if (opcoes != 1 || opcoes != 2 || opcoes != 3 || opcoes != 4 || opcoes != 0) {
-                        System.out.println("Opção Invalida, tente novamente!");
-                    }
-                break;
-            } 
-        }      
+
+                    break;
+            }
+            
+        }
+
     }
+    
 }
