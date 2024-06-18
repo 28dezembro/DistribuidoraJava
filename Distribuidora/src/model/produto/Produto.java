@@ -5,6 +5,7 @@ public abstract class Produto {
     protected String nome, categoria;
     protected float preco;
     protected int codigo, qtd;
+    protected boolean ativo;
 
     public Produto(String nome, String categoria, float preco, int codigo, int qtd) {
         this.nome = nome;
@@ -12,6 +13,7 @@ public abstract class Produto {
         this.preco = preco;
         this.codigo = codigo;
         this.qtd = qtd;
+        this.ativo = true;
     }
 
     public boolean reduzirEstoque(int quantidade){
@@ -21,6 +23,10 @@ public abstract class Produto {
         }
         return false;
     }
+    public void aumentarEstoque(int quantidade) {
+        this.qtd += quantidade;
+    }
+    
 
     public String getNome() {
         return nome;
@@ -60,6 +66,14 @@ public abstract class Produto {
 
     public void setQtd(int qtd) {
         this.qtd = qtd;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     public String imprimeProduto(){

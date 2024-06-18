@@ -4,7 +4,7 @@ import java.util.Scanner;
 import controller.DistribuidoraController;
 import model.produto.Produto;
 import model.usuario.UsuarioComum;
-import model.Venda;
+
 
 public class UsuarioComumView {
     public static void main(String[] args, Scanner in, DistribuidoraController controller, UsuarioComum usuarioSelecionado) throws Exception{

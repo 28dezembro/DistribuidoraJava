@@ -1,7 +1,9 @@
 package controller;
 
+//import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import model.Venda;
 import model.produto.*;
@@ -73,6 +75,24 @@ public class DistribuidoraController {
             usuarios.add(Admin.cadastrarAdmin(nomeCompleto, login, senha));
         }
     }
+    
+    public void alterarSenhaUsuario(String login, String novaSenha) {
+        Optional<Usuario> usuarioOptional = buscarUsuario(login);
+        usuarioOptional.ifPresent(usuario -> usuario.setSenha(novaSenha));
+    }
+
+    public void alterarTipoUsuario(String login, String novoTipo) {
+        Optional<Usuario> usuarioOptional = buscarUsuario(login);
+        usuarioOptional.ifPresent(usuario -> {
+            if (usuario instanceof Admin) {
+                ((Admin) usuario).setAdmin("admin".equals(novoTipo));
+            }
+        });
+    }
+
+    public void excluirUsuario(String login) {
+        usuarios.removeIf(u -> u.getLogin().equals(login));
+    }
 
     private void cadastrarVenda(int codigo, List<Produto> produtos, UsuarioComum usuario, float valorVenda){
         if (buscarVenda(codigo).isEmpty()) {
@@ -98,6 +118,18 @@ public class DistribuidoraController {
             }
         }
     }
+    public void reporEstoque(String nomeProduto, int quantidade) {
+        Optional<Produto> produtoOptional = buscarProduto(nomeProduto);
+    
+        produtoOptional.ifPresent(produto -> produto.aumentarEstoque(quantidade));
+    }
+    
+    public void ativarDesativarProduto(String nomeProduto, boolean ativar) {
+        Optional<Produto> produtoOptional = buscarProduto(nomeProduto);
+    
+        produtoOptional.ifPresent(produto -> produto.setAtivo(ativar));
+    }
+    
 
     public void finalizarVenda(List<Produto> carrinho, UsuarioComum usuario){
         float valorTotal = 0f;
@@ -125,6 +157,48 @@ public class DistribuidoraController {
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+    public List<Bebida> listarBebidas() {
+        return produtos.stream()
+                       .filter(p -> p instanceof Bebida)
+                       .map(p -> (Bebida) p)
+                       .collect(Collectors.toList());
+    }
+
+    public List<Comida> listarComidas() {
+        return produtos.stream()
+                       .filter(p -> p instanceof Comida)
+                       .map(p -> (Comida) p)
+                       .collect(Collectors.toList());
+    }
+    public void alterarNomeProduto(Produto produto, String novoNome) {
+        produto.setNome(novoNome);
+        System.out.println("Nome do produto alterado para " + novoNome);
+    }
+
+    public void alterarCategoriaProduto(Produto produto, String novaCategoria) {
+        produto.setCategoria(novaCategoria);
+        System.out.println("Categoria do produto alterada para " + novaCategoria);
+    }
+
+    public void alterarPrecoProduto(Produto produto, float novoPreco) {
+        produto.setPreco(novoPreco);
+        System.out.println("Preço do produto alterado para " + novoPreco);
+    }
+    public void excluirProduto(Produto produto) {
+        
+        if (!produtos.contains(produto)) {
+            System.out.println("Produto não encontrado.");
+            return;
+        }
+    
+        if (produto.getQtd() == 0) {
+            produtos.remove(produto);
+            System.out.println("Produto " + produto.getNome() + " excluído com sucesso.");
+        } else {
+            System.out.println("Não é possível excluir o produto " + produto.getNome() + " porque o estoque não está zerado.");
+        }
+    }
+    
 
     @Override
     public String toString() {
