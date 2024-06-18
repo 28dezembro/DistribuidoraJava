@@ -23,8 +23,9 @@ public class AdminView {
         boolean menu = true;
         int adminopcao;
     
-        System.out.println("Login feito com sucesso, " + usuarioSelecionado.getNomeCompleto());
-    
+        System.out.println("\nLogin feito com sucesso administrador, " + usuarioSelecionado.getNomeCompleto());
+        System.out.println("------------Seja Bem-Vindo a distribuidora dos Guri------------");
+
         while (menu) {
             System.out.println("\nSelecione o que deseja fazer: "
                 + "\n1 - Alterar usuário"
@@ -81,7 +82,7 @@ public class AdminView {
                             List<Bebida> bebidas = controller.listarBebidas();
                             System.out.println("BEBIDAS:");
                             for (Bebida bebida : bebidas) {
-                                System.out.println(bebida.getNome() + "\n quant Disponivel" + bebida.getQtd() + "\nR$" + bebida.getPreco());
+                                System.out.println(bebida.getNome() + "\nQuantidade Disponivel: " + bebida.getQtd() + "\nValor: R$" + bebida.getPreco());
                             }
                             break;
 
@@ -89,7 +90,7 @@ public class AdminView {
                             List<Comida> comidas = controller.listarComidas();
                             System.out.println("\nCOMIDAS:");
                             for (Comida comida : comidas) {
-                                System.out.println(comida.getNome() + " \nquant disponivel " + comida.getQtd()+ " \nR$ " + comida.getPreco());
+                                System.out.println(comida.getNome() + " \nQuantidade Disponivel: " + comida.getQtd()+ " \nValor: R$ " + comida.getPreco());
                             }
                             break;
                         case 0:
@@ -256,14 +257,13 @@ public class AdminView {
                                 System.out.println("Produto " + nome + " " + (ativar ? "ativado" : "desativado") + " com sucesso.");
                             break;
                 case 0:
+                    System.out.println("Sessão encerrada.");
                     menu = false;
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
                     break;
             }
-        }
-    
-        System.out.println("Sessão encerrada.");
+        }    
     }
 }

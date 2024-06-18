@@ -24,7 +24,7 @@ public class App {
         
         controller.cadastrarUsuario("André Lucas", "Andre", "123123");
         controller.cadastrarUsuario("André lucas", "Andre", "null", "rua tchurusbago", 998998989, 41); //teste pra ver se inclui usuario duplicado (mesmo login)
-        controller.cadastrarUsuario("André lucas", "Lucas", "null", "rua tchurusbago", 998998989, 41);
+        controller.cadastrarUsuario("Marcão", "Marcos", "123", "rua tchurusbago", 998998989, 41);
         controller.cadastrarUsuario("thierry","tito","1234");
         //Fim da população
 
