@@ -1,6 +1,5 @@
 package model.usuario;
 
-
 public class Admin extends Usuario {
 
     private Admin(String nomeCompleto, String login, String senha, boolean admin) {

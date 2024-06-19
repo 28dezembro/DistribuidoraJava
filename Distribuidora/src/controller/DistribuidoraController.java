@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-//import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,30 +36,30 @@ public class DistribuidoraController {
 
     public Optional<Produto> buscarProduto(String nome){
         return produtos.stream()
-        .filter(p -> p.getNome().equals(nome))
+        .filter(produtoEstoque -> produtoEstoque.getNome().equals(nome))
         .findFirst();
     }
 
     public Optional<Venda> buscarVenda(int codigo){
         return vendas.stream()
-        .filter(p -> String.valueOf(p.getCodigo()).equals(String.valueOf(codigo)))
+        .filter(vendasEstoque -> String.valueOf(vendasEstoque.getCodigo()).equals(String.valueOf(codigo)))
         .findFirst();
     }
 
     public Optional<Usuario> buscarUsuario(String login){
         return usuarios.stream()
-        .filter(u -> u.getLogin().equals(login))
+        .filter(usuarioSistema -> usuarioSistema.getLogin().equals(login))
         .findFirst();
     }
 
     public void cadastrarProduto(String nome, String categoria, float preco, int qtd){
-        if (!buscarProduto(nome).isPresent()) {
+        if (buscarProduto(nome).isEmpty()) {
             produtos.add(Comida.cadastrarComida(nome, categoria, preco, gerarCodigoProduto(), qtd));
         }
     }
 
     public void cadastrarProduto(String nome, String categoria, float preco, int qtd, boolean alcoolico){
-        if (!buscarProduto(nome).isPresent()) {
+        if (buscarProduto(nome).isEmpty()) {
             produtos.add(Bebida.cadastrarBebida(nome, categoria, preco, gerarCodigoProduto(), qtd, alcoolico));
         }
     }
@@ -92,11 +91,11 @@ public class DistribuidoraController {
     private Produto copiarProduto(Produto produto)throws Exception {
         if (produto instanceof Comida) {
             Comida comida = (Comida) produto;
-            return comida.copiaProduto(produto);
-
+            return comida.copiarProduto(produto);
+            
         } else if (produto instanceof Bebida) {
             Bebida bebida = (Bebida) produto;
-            return bebida.copiaProduto(produto);
+            return bebida.copiarProduto(produto);
         } else {
             throw new Exception("Produto não identificado");
         }
@@ -112,7 +111,6 @@ public class DistribuidoraController {
         } catch (Exception e) {
             throw new Exception("Não foi possível alterar a senha do usuário" + e.getMessage());
         }
-        
     }
 
     public void alterarTipoUsuario(String login, String novoTipo) {
@@ -129,18 +127,14 @@ public class DistribuidoraController {
     }
     
     public void reporEstoque(String nomeProduto, int quantidade) {
-        Optional<Produto> produtoOptional = buscarProduto(nomeProduto);
-    
-        produtoOptional.ifPresent(produto -> produto.aumentarEstoque(quantidade));
+        buscarProduto(nomeProduto).get().aumentarEstoque(quantidade);
     }
     
     public void ativarDesativarProduto(String nomeProduto, boolean ativar) {
-        Optional<Produto> produtoOptional = buscarProduto(nomeProduto);
-    
-        produtoOptional.ifPresent(produto -> produto.setAtivo(ativar));
+        buscarProduto(nomeProduto).get().setAtivo(ativar);
     }
     
-    public Produto adicionarAoCarrinho(Produto produto, int quantidade) throws Exception {
+    public Produto adicionarProdutoCarrinho(Produto produto, int quantidade) throws Exception {
         Produto produtoEstoque = buscarProduto(produto.getNome()).get();
         if (produtoEstoque.getQtd() < quantidade) {
             throw new Exception("Quantidade indisponível");
@@ -148,16 +142,22 @@ public class DistribuidoraController {
         Produto produtoCarrinho = copiarProduto(produtoEstoque);
         produtoCarrinho.setQtd(quantidade);
         return produtoCarrinho;
-    }  
+    }
+
+    public void removeProdutoCarrinho(Produto produto){
+
+    }
+    
+    public float calculaTotalVenda(List<Produto> carrinho){
+        float valorTotal = 0f;
+        for (Produto produto : carrinho) {
+            valorTotal += produto.getPreco();
+        }
+        return valorTotal;
+    }
 
     public void finalizarVenda(List<Produto> carrinho, UsuarioComum usuario) throws Exception{
         try {
-            //calcula valor total;
-            float valorTotal = 0f;
-            for (Produto produto : carrinho) {
-                valorTotal += produto.getPreco();
-            }
-
             //Faz uma copia de todos os produtos do carrinho para cadastrar na venda
             List<Produto> produtosVenda = new ArrayList<>();
             for (Produto produto : carrinho) {
@@ -174,24 +174,24 @@ public class DistribuidoraController {
             });
 
             //finalmente cadastre a venda
-            cadastrarVenda(gerarCodigoVenda(), produtosVenda, usuario, valorTotal);
+            cadastrarVenda(gerarCodigoVenda(), produtosVenda, usuario, calculaTotalVenda(produtosVenda));
         } catch (Exception e) {
-            throw new Exception("\n" + e.getMessage());
+            throw new Exception("Não foi possível finalizar a venda" + e.getMessage());
         }
     }
     
     public List<Bebida> listarBebidas() {
         return produtos.stream()
-                       .filter(p -> p instanceof Bebida)
-                       .map(p -> (Bebida) p)
-                       .collect(Collectors.toList());
+        .filter(p -> p instanceof Bebida)
+        .map(p -> (Bebida) p)
+        .collect(Collectors.toList());
     }
 
     public List<Comida> listarComidas() {
         return produtos.stream()
-                       .filter(p -> p instanceof Comida)
-                       .map(p -> (Comida) p)
-                       .collect(Collectors.toList());
+        .filter(p -> p instanceof Comida)
+        .map(p -> (Comida) p)
+        .collect(Collectors.toList());
     }
 
     public void alterarNomeProduto(Produto produto, String novoNome) {

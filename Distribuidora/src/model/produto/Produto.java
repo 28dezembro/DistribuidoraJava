@@ -16,7 +16,7 @@ public abstract class Produto {
         this.ativo = true;
     }
 
-    public abstract Produto copiaProduto(Produto produto);
+    public abstract Produto copiarProduto(Produto produto);
 
     public boolean reduzirEstoque(int quantidade){
         if (qtd > 0) {

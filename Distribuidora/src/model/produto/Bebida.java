@@ -13,7 +13,7 @@ public class Bebida extends Produto {
     }
 
     @Override
-    public Bebida copiaProduto(Produto produto){
+    public Bebida copiarProduto(Produto produto){
         Bebida bebida = (Bebida) produto;
         return new Bebida(bebida.getNome(), bebida.getCategoria(), bebida.getPreco(), bebida.getCodigo(), bebida.getQtd(), bebida.isAlcoolico());
     }

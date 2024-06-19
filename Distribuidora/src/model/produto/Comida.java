@@ -11,7 +11,7 @@ public class Comida extends Produto {
     }
 
     @Override
-    public Comida copiaProduto(Produto produto){
+    public Comida copiarProduto(Produto produto){
         Comida comida = (Comida) produto;
         return new Comida(comida.getNome(), comida.getCategoria(), comida.getPreco(), comida.getCodigo(), comida.getQtd());
     }
