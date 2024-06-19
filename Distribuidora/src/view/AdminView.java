@@ -13,14 +13,15 @@ public class AdminView {
     public static void main(String[] args, Scanner in, DistribuidoraController controller, Admin usuarioSelecionado)
             throws Exception {
         boolean menu = true;
-        int adminopcao, opcaoAlterar, listarCategorias, cadProdutos, opcao, opcaoAlt;
+        int adminopcao, listarCategorias, cadProdutos, opcao, opcaoAlt;
 
         System.out.println("\nLogin feito com sucesso administrador, " + usuarioSelecionado.getNomeCompleto());
         System.out.println("------------Seja Bem-Vindo a distribuidora dos Guri------------");
 
         while (menu) {
-            System.out.println("\nSelecione o que deseja fazer: "
-                    + "\n1 - Alterar usuário"
+            System.out.println(
+                    "\nSelecione o que deseja fazer: "
+                    + "\n1 - Alterar cadastro"
                     + "\n2 - Excluir usuário"
                     + "\n3 - Listar produtos"
                     + "\n4 - Menu de produto"
@@ -32,30 +33,7 @@ public class AdminView {
 
             switch (adminopcao) {
                 case 1:
-                    System.out.println("Digite o login do usuário que deseja alterar:");
-                    String loginUsuario = in.nextLine();
-                    System.out.println("Selecione o que deseja alterar:"
-                            + "\n1 - Alterar senha"
-                            + "\n2 - Alterar tipo de usuário (admin ou comum)");
-                    opcaoAlterar = in.nextInt();
-                    in.nextLine();// consome caracter
-
-                    switch (opcaoAlterar) {
-                        case 1:
-                            System.out.println("Digite a nova senha:");
-                            controller.alterarSenhaUsuario(loginUsuario, in.nextLine());
-                            break;
-
-                        case 2:
-                            System.out.println("Digite o novo tipo (admin ou comum):");
-                            String novoTipo = in.nextLine();
-                            controller.alterarTipoUsuario(loginUsuario, novoTipo);
-                            break;
-
-                        default:
-                            System.out.println("Opção inválida.");
-                            break;
-                    }
+                    AlterarCadastroAdminView.main(args, in, controller, usuarioSelecionado);
                     break;
 
                 case 2:
