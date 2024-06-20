@@ -64,11 +64,9 @@ public class UsuarioComumView {
                         break;
                     }
 
-                    System.out.println(
-                        "\nSeu carrinho: \n" + usuarioSelecionado.getCarrinho() + 
-                        "\nTotal: R$" + controller.calculaTotalVenda(usuarioSelecionado.getCarrinho()));
+                    System.out.println("\nSeu carrinho: \n" + usuarioSelecionado.imprimeCarrinho());
 
-                    menuCarrinho = true;
+                    menuCarrinho = true;    
                     while (menuCarrinho) {
                         System.out.println(
                             "\n1 - Fechar carrinho e finalizar a venda" + 
@@ -93,7 +91,7 @@ public class UsuarioComumView {
                                 break;
 
                             case 2:
-                                System.out.println("(Não funcional) Qual item gostaria de remover?" + usuarioSelecionado.imprimeCarrinho());
+                                System.out.println("Qual item gostaria de remover?" + usuarioSelecionado.imprimeCarrinho());
                                 break;
 
                             case 3:
@@ -116,7 +114,7 @@ public class UsuarioComumView {
                     break;
 
                 case 3:
-                    System.out.println(usuarioSelecionado.getPedidos());
+                    System.out.println(usuarioSelecionado.imprimePedidos());
                     break;
 
                 case 4:

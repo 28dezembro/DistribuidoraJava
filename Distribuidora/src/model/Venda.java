@@ -4,6 +4,7 @@ import java.util.List;
 import model.produto.*;
 import model.usuario.UsuarioComum;
 
+
 public class Venda {
     protected int codigo;
     protected List<Produto> produtos;
@@ -19,6 +20,14 @@ public class Venda {
 
     public static Venda cadastrarVenda(int codigo, List<Produto> produtos, UsuarioComum usuario, float valorVenda){
         return new Venda(codigo, produtos, usuario, valorVenda);
+    }
+
+    public String geraReciboVenda(Venda venda){
+        return "Recibo do Pedido n°" + venda.getCodigo() +
+        "\nComprador: " + venda.getUsuario().getNomeCompleto() + 
+        "\nContato: " + "("+venda.getUsuario().getDdd()+")" + venda.getUsuario().getTelefone() +
+        "\nEndereço: " + venda.getUsuario().getEndereco() + 
+        "\nProdutos : " + venda.getUsuario().imprimeProdutosVenda(venda);
     }
 
     public int getCodigo() {

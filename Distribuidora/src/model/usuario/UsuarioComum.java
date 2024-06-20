@@ -2,6 +2,8 @@ package model.usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import model.Venda;
 import model.produto.Produto;
 
@@ -25,10 +27,34 @@ public class UsuarioComum extends Usuario{
     }
 
     public String imprimeCarrinho(){
-        return carrinho.stream()
+        String produtos = carrinho.stream()
         .map(produto -> produto.imprimeProduto())
-        .findAny()
-        .orElseThrow();
+        .collect(Collectors.joining("\n"));
+
+        float valorTotal = 0f;
+        for (Produto produto : carrinho) {
+            valorTotal += produto.getPreco();
+        }
+
+        return produtos + "\nTotal R$" + valorTotal;
+    }
+
+    public String imprimeProdutosVenda(Venda venda) {
+        float valorTotal = 0f;
+        for (Produto produto : venda.getProdutos()) {
+            valorTotal += produto.getPreco();
+        }
+        String produtos = venda.getProdutos().stream()
+        .map(produto -> produto.imprimeProduto())
+        .collect(Collectors.joining("\n"));
+
+        return produtos + "\nTotal R$" + valorTotal;
+    }
+
+    public String imprimePedidos(){
+        return pedidos.stream()
+        .map(pedido -> pedido.geraReciboVenda(pedido))
+        .collect(Collectors.joining("\n\n"));
     }
 
     public String getEndereco() {

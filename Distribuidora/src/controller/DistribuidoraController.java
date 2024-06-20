@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import model.Venda;
 import model.produto.*;
 import model.usuario.*;
+import util.Recibo;
 
 public class DistribuidoraController {
     private List<Produto> produtos;
@@ -76,15 +76,19 @@ public class DistribuidoraController {
         }
     }
 
-    private void cadastrarVenda(int codigo, List<Produto> produtos, UsuarioComum usuario, float valorVenda) throws Exception{
+    private Venda cadastrarVenda(int codigo, List<Produto> produtos, UsuarioComum usuario, float valorVenda) throws Exception{
         if (buscarVenda(codigo).isEmpty()) {
+            Venda novaVenda = null;
             try {
-                Venda novaVenda = Venda.cadastrarVenda(codigo, produtos, usuario, valorVenda);
+                novaVenda = Venda.cadastrarVenda(codigo, produtos, usuario, valorVenda);
                 vendas.add(novaVenda);
                 usuario.getPedidos().add(novaVenda);
             } catch (Exception e) {
                 throw new Exception("Não foi possível cadastrar a venda" + e.getMessage());
             } 
+            return novaVenda;
+        } else {
+            throw new Exception("Venda já existe");
         }
     }
 
@@ -174,7 +178,9 @@ public class DistribuidoraController {
             });
 
             //finalmente cadastre a venda
-            cadastrarVenda(gerarCodigoVenda(), produtosVenda, usuario, calculaTotalVenda(produtosVenda));
+            Venda novaVenda = cadastrarVenda(gerarCodigoVenda(), produtosVenda, usuario, calculaTotalVenda(produtosVenda));
+            String recibo = novaVenda.geraReciboVenda(novaVenda);
+            Recibo.gravar(recibo);
         } catch (Exception e) {
             throw new Exception("Não foi possível finalizar a venda" + e.getMessage());
         }
@@ -196,7 +202,6 @@ public class DistribuidoraController {
 
     public void alterarNomeProduto(Produto produto, String novoNome) {
         produto.setNome(novoNome);
-        System.out.println("Nome do produto alterado para " + novoNome);
     }
 
     public void alterarCategoriaProduto(Produto produto, String novaCategoria) {

@@ -179,6 +179,7 @@ public class AdminView {
                                             System.out.println("Digite o novo nome:");
                                             String novoNome = in.nextLine();
                                             controller.alterarNomeProduto(produtoExistente, novoNome);
+                                            System.out.println("Nome alterado com sucesso!");
                                             break;
 
                                         case 2:

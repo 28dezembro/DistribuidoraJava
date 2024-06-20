@@ -16,6 +16,10 @@ public class Comida extends Produto {
         return new Comida(comida.getNome(), comida.getCategoria(), comida.getPreco(), comida.getCodigo(), comida.getQtd());
     }
 
+    public String imprimeProduto(){
+        return categoria + " " + nome + ":" + " R$" + preco;
+    }
+
     public String produtoDisponivel(){
         return categoria + " " + nome + ":"
         + "\nPreço: " + preco;
