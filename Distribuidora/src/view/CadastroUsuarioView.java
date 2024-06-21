@@ -29,7 +29,7 @@ public class CadastroUsuarioView {
 
                 try {
                     controller.cadastrarUsuario(nomeCompleto, usuario, senha, endereco, telefone, ddd);
-                    System.out.println("\nUsuário cadastrado com sucesso!");
+                    System.out.println("\nUsuário cadastrado com sucesso! Por favor faça o login.");
                     menuCadastro = false;
                 } catch (Exception e) {
                     throw new Exception("Não foi possível fazer o cadastro, tente novamente" + e.getMessage());

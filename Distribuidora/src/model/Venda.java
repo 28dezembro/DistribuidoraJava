@@ -1,11 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 import model.produto.*;
 import model.usuario.UsuarioComum;
 
 
-public class Venda {
+public class Venda implements Serializable {
     protected int codigo;
     protected List<Produto> produtos;
     protected UsuarioComum usuario;

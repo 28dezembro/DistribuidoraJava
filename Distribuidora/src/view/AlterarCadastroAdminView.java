@@ -38,22 +38,21 @@ public class AlterarCadastroAdminView {
 
                             switch (opcaoAlterar) {
                                 case 1:
-                                    System.out
-                                            .println(
-                                                    "Para qual nome gostaria de mudar?(Digite CANCELAR para interromper)");
+                                    System.out.println("Para qual nome gostaria de mudar?(Digite CANCELAR para interromper)");
                                     alteraInformacao = in.nextLine();
                                     if (!alteraInformacao.equalsIgnoreCase("CANCELAR")) {
                                         usuarioSelecionado.setNomeCompleto(alteraInformacao);
+                                        System.out.println("Nome alterado com sucesso!");
                                         break;
                                     }
                                     break;
 
                                 case 2:
-                                    System.out.println(
-                                            "Para qual login gostaria de mudar?(Digite CANCELAR para interromper)");
+                                    System.out.println("Para qual login gostaria de mudar?(Digite CANCELAR para interromper)");
                                     alteraInformacao = in.nextLine();
                                     if (!alteraInformacao.equalsIgnoreCase("CANCELAR")) {
                                         usuarioSelecionado.setLogin(alteraInformacao);
+                                        System.out.println("Login alterado com sucesso!");
                                         break;
                                     }
                                     break;
@@ -63,6 +62,7 @@ public class AlterarCadastroAdminView {
                                     if (in.nextLine().equals(usuarioSelecionado.getSenha())) {
                                         System.out.println("Digite a nova senha:");
                                         controller.alterarSenhaUsuario(usuarioSelecionado.getLogin(), in.nextLine());
+                                        System.out.println("Senha alterada com sucesso!");
                                         break;
                                     }
                                     System.out.println("Senha incorreta, tente novamente;");
@@ -84,10 +84,9 @@ public class AlterarCadastroAdminView {
                         System.out.println("Digite o login do usuário que gostaria de alterar:");
                         buscarUsuarioAlterar = in.nextLine();
                         if (controller.buscarUsuario(buscarUsuarioAlterar).isPresent()
-                                && controller.buscarUsuario(buscarUsuarioAlterar).get() instanceof UsuarioComum) {
+                        && controller.buscarUsuario(buscarUsuarioAlterar).get() instanceof UsuarioComum) {
                             passaUsuarioAlterar = controller.buscarUsuario(buscarUsuarioAlterar).get();
-                            AlterarCadastroUsuarioComumView.main(args, in, controller,
-                                    (UsuarioComum) passaUsuarioAlterar);
+                            AlterarCadastroUsuarioComumView.main(args, in, controller, (UsuarioComum) passaUsuarioAlterar);
                             break;
                         }
                         System.out.println("Usuario selecionado não existe ou é outro Admin.");

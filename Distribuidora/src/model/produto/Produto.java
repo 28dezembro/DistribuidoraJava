@@ -1,12 +1,13 @@
 package model.produto;
 
+import java.io.Serializable;
+
 import model.IOperacoesProduto;
 
-public abstract class Produto implements IOperacoesProduto {
+public abstract class Produto implements IOperacoesProduto, Serializable {
     protected String nome, categoria;
     protected float preco;
     protected int codigo, qtd;
-    protected boolean ativo;
 
     public Produto(String nome, String categoria, float preco, int codigo, int qtd) {
         this.nome = nome;
@@ -14,7 +15,6 @@ public abstract class Produto implements IOperacoesProduto {
         this.preco = preco;
         this.codigo = codigo;
         this.qtd = qtd;
-        this.ativo = true;
     }
 
     public boolean reduzirEstoque(int quantidade){
@@ -67,14 +67,6 @@ public abstract class Produto implements IOperacoesProduto {
 
     public void setQtd(int qtd) {
         this.qtd = qtd;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
     }
 
     public String imprimeProduto(){

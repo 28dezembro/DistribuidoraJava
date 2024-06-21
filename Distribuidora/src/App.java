@@ -1,3 +1,5 @@
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -14,23 +16,20 @@ public class App {
         Usuario usuarioSelecionado;
         int opcao;
 
+        try {
+            PrintStream ps = new PrintStream(new FileOutputStream("erro.log"));
+            System.setErr(ps);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Scanner in = new Scanner(System.in);
         DistribuidoraController controller = new DistribuidoraController(new ArrayList<Produto>(), new ArrayList<Usuario>(), new ArrayList<Venda>());
 
-        // Populando o sistema
-        controller.cadastrarProduto("Campo Largo", "Vinho", 14.90f, 1, true);
-        controller.cadastrarProduto("Passatempo", "Bolacha", 4.90f, 1);
-
-        controller.cadastrarUsuario("André Lucas", "a", "a");
-        controller.cadastrarUsuario("André lucas", "andre", "a", "rua tchurusbago", 998998989, 41); // teste pra ver se inclui usuario duplicado (mesmo login)
-        controller.cadastrarUsuario("Marcão", "Marcos", "123", "rua tchurusbago", 998998989, 41);
-        controller.cadastrarUsuario("thierry", "tito", "1234");
-        // Fim da população
-
         while (login) {
             System.out.println("\nSelecione uma opção:"
-                    + "\n1. Faça Login"
-                    + "\n2. Crie seu cadastro");
+                            + "\n1. Faça Login"
+                            + "\n2. Crie seu cadastro");
 
             try {
                 opcao = in.nextInt();

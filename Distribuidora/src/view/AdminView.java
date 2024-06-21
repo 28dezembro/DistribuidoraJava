@@ -35,7 +35,11 @@ public class AdminView {
                         break;
 
                     case 3:
-                        System.out.println(controller.imprimePedidos());
+                    if (controller.getVendas().isEmpty()) {
+                        System.out.println("Não há nenhuma venda no momento.");
+                    }else{
+                        System.out.println(controller.imprimePedidos()); 
+                    }
                         break;
 
                     case 0:

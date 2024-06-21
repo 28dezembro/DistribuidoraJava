@@ -13,8 +13,7 @@ public class CadastroProdutoView {
         float precoNovoProduto;
 
         while (menu) {
-            System.out.println(
-                    "1 - Cadastrar nova comida"
+            System.out.println( "1 - Cadastrar nova comida"
                             + "\n2 - Cadastrar nova bebida"
                             + "\n0 - Sair");
 
@@ -36,8 +35,8 @@ public class CadastroProdutoView {
                             in.nextLine();// Limpa buffer
 
                             try {
-                                controller.cadastrarProduto(
-                                        nomeNovoProduto, categoriaNovoProduto, precoNovoProduto, qtdNovoProduto);
+                                controller.cadastrarProduto(nomeNovoProduto, categoriaNovoProduto, precoNovoProduto, qtdNovoProduto);
+                                System.out.println("Produto cadastrado com sucesso!");
                             } catch (Exception e) {
                                 System.err.println("Erro ao cadastrar novo produto: " + e.getMessage());
                             }
@@ -71,8 +70,8 @@ public class CadastroProdutoView {
 
                             try {
                                 controller.cadastrarProduto(
-                                        nomeNovoProduto, categoriaNovoProduto, precoNovoProduto, qtdNovoProduto,
-                                        alcoolicoNovoProduto);
+                                    nomeNovoProduto, categoriaNovoProduto, precoNovoProduto, qtdNovoProduto,alcoolicoNovoProduto);
+                                System.out.println("Produto cadastrado com sucesso!");
                             } catch (Exception e) {
                                 System.err.println("Erro ao cadastrar novo produto: " + e.getMessage());
                             }

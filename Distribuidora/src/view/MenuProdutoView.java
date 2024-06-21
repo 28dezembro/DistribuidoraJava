@@ -44,8 +44,7 @@ public class MenuProdutoView {
                                 System.err.println("Erro: quantidade inválida. Tente novamente.");
                                 in.nextLine(); // Consome a entrada inválida
                             } catch (Exception e) {
-                                System.err
-                                        .println("Não foi possível adicionar a quantidade desejada: " + e.getMessage());
+                                System.err.println("Não foi possível adicionar a quantidade desejada: " + e.getMessage());
                             }
                         } else {
                             System.out.println("Produto não encontrado");
@@ -112,6 +111,7 @@ public class MenuProdutoView {
                             if (in.nextLine().equals("DELETAR")) {
                                 try {
                                     controller.excluirProduto(buscaAlteraProduto);
+                                    System.out.println("Produto deletado com sucesso!");
                                 } catch (Exception e) {
                                     System.err.println("Erro ao excluir produto:" + e.getMessage());
                                 }

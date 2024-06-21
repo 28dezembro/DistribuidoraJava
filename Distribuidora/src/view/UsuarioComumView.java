@@ -49,16 +49,13 @@ public class UsuarioComumView {
                                     try {
                                         produtoAdicionarQtd = in.nextInt();
                                         usuarioSelecionado.getCarrinho()
-                                                .add(controller.adicionarProdutoCarrinho(produtoAdicionar,
-                                                        produtoAdicionarQtd));
-                                        System.out.println(
-                                                produtoAdicionar.getNome() + " adicionado ao carrinho com sucesso!");
+                                            .add(controller.adicionarProdutoCarrinho(produtoAdicionar, produtoAdicionarQtd));
+                                        System.out.println(produtoAdicionar.getNome() + " adicionado ao carrinho com sucesso!");
                                     } catch (InputMismatchException e) {
                                         System.err.println("Erro: quantidade inválida. Tente novamente.");
                                         in.nextLine(); // Consome a entrada inválida
                                     } catch (Exception e) {
-                                        System.err.println(
-                                                "Não foi possível adicionar a quantidade desejada: " + e.getMessage());
+                                        System.err.println("Não foi possível adicionar a quantidade desejada: " + e.getMessage());
                                     }
                                 } else {
                                     System.out.println("Operação cancelada");
@@ -81,7 +78,7 @@ public class UsuarioComumView {
                         menuCarrinho = true;
                         while (menuCarrinho) {
                             System.out.println(
-                                    "\n1 - Fechar carrinho e finalizar a venda" +
+                                            "\n1 - Fechar carrinho e finalizar a venda" +
                                             "\n2 - Remover um item do carrinho" +
                                             "\n3 - Limpar carrinho" +
                                             "\n4 - Voltar");
@@ -93,8 +90,7 @@ public class UsuarioComumView {
                                     System.out.println("Confirma fechar o carrinho e finalizar a venda?(S/N)");
                                     if (in.nextLine().equalsIgnoreCase("S")) {
                                         try {
-                                            controller.finalizarVenda(usuarioSelecionado.getCarrinho(),
-                                                    usuarioSelecionado);
+                                            controller.finalizarVenda(usuarioSelecionado.getCarrinho(), usuarioSelecionado);
                                             usuarioSelecionado.getCarrinho().clear();
                                             menuCarrinho = false;
                                         } catch (Exception e) {
@@ -104,22 +100,20 @@ public class UsuarioComumView {
                                     break;
 
                                 case 2:
-                                    System.out.println(
-                                            "Qual item gostaria de remover?\n" + usuarioSelecionado.imprimeCarrinho());
+                                    System.out.println("Qual item gostaria de remover?\n" + usuarioSelecionado.imprimeCarrinho());
                                     produtoBuscarNome = in.nextLine();
+                                    
                                     if (usuarioSelecionado.buscarProdutoCarrinho(produtoBuscarNome).isPresent()) {
-                                        System.out.println(
-                                                "Confirma remoção do produto: " + produtoBuscarNome + "?(S/N)");
+                                        System.out.println("Confirma remoção do produto: " + produtoBuscarNome + "?(S/N)");
+
                                         if (in.nextLine().equalsIgnoreCase("S")) {
                                             try {
                                                 usuarioSelecionado.getCarrinho()
-                                                        .remove(usuarioSelecionado
-                                                                .buscarProdutoCarrinho(produtoBuscarNome).get());
+                                                    .remove(usuarioSelecionado.buscarProdutoCarrinho(produtoBuscarNome).get());
                                                 System.out.println("Item removido com sucesso");
                                                 menuCarrinho = false;
                                             } catch (Exception e) {
-                                                System.err.println(
-                                                        "Erro ao remover produto do carrinho: " + e.getMessage());
+                                                System.err.println("Erro ao remover produto do carrinho: " + e.getMessage());
                                             }
                                         }
                                     } else {
@@ -147,7 +141,11 @@ public class UsuarioComumView {
                         break;
 
                     case 3:
-                        System.out.println(usuarioSelecionado.imprimePedidos());
+                        if (usuarioSelecionado.getPedidos().isEmpty()) {
+                            System.out.println("Você não fez nenhum pedido ainda!");
+                        }else{
+                            System.out.println(usuarioSelecionado.imprimePedidos());
+                        }
                         break;
 
                     case 4:

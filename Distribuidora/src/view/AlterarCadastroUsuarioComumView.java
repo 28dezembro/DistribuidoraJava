@@ -33,6 +33,7 @@ public class AlterarCadastroUsuarioComumView {
                         alteraInformacao = in.nextLine();
                         if (!alteraInformacao.equalsIgnoreCase("CANCELAR")) {
                             usuarioSelecionado.setNomeCompleto(alteraInformacao);
+                            System.out.println("Nome alterado com sucesso!");
                             break;
                         }
                         break;
@@ -42,6 +43,7 @@ public class AlterarCadastroUsuarioComumView {
                         alteraInformacao = in.nextLine();
                         if (!alteraInformacao.equalsIgnoreCase("CANCELAR")) {
                             usuarioSelecionado.setLogin(alteraInformacao);
+                            System.out.println("Login alterado com sucesso!");
                             break;
                         }
                         break;
@@ -51,6 +53,7 @@ public class AlterarCadastroUsuarioComumView {
                         if (in.nextLine().equals(usuarioSelecionado.getSenha())) {
                             System.out.println("Digite a nova senha:");
                             controller.alterarSenhaUsuario(usuarioSelecionado.getLogin(), in.nextLine());
+                            System.out.println("Senha alterada com sucesso!");
                             break;
                         }
                         System.out.println("Senha incorreta, tente novamente;");
@@ -61,6 +64,7 @@ public class AlterarCadastroUsuarioComumView {
                         alteraInformacao = in.nextLine();
                         if (!alteraInformacao.equalsIgnoreCase("CANCELAR")) {
                             usuarioSelecionado.setEndereco(alteraInformacao);
+                            System.out.println("Endereço alterado com sucesso!");
                             break;
                         }
                         break;
@@ -70,6 +74,7 @@ public class AlterarCadastroUsuarioComumView {
                         alteraInformacao = in.nextLine();
                         if (alteraInformacao.equalsIgnoreCase("CANCELAR")) {
                             usuarioSelecionado.setTelefone(Integer.parseInt(alteraInformacao));
+                            System.out.println("Telefone alterado com sucesso!");
                             break;
                         }
                         break;
@@ -79,6 +84,7 @@ public class AlterarCadastroUsuarioComumView {
                         alteraInformacao = in.nextLine();
                         if (!alteraInformacao.equalsIgnoreCase("CANCELAR")) {
                             usuarioSelecionado.setDdd(Integer.parseInt(alteraInformacao));
+                            System.out.println("DDD alterado com sucesso!");
                             break;
                         }
                         break;

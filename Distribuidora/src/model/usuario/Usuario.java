@@ -1,6 +1,8 @@
 package model.usuario;
 
-public abstract class Usuario {
+import java.io.Serializable;
+
+public abstract class Usuario implements Serializable {
     protected String nomeCompleto, login, senha;
     protected boolean admin;
 
