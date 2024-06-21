@@ -21,7 +21,7 @@ public class CadastroUsuarioView {
                 senha = in.nextLine();
                 System.out.println("\nEm que endereço reside?: ");
                 endereco = in.nextLine();
-                System.out.println("Qual o DDD do seu telefone?");
+                System.out.println("\nQual o DDD do seu telefone?");
                 ddd = in.nextInt();
                 System.out.println("\nTelefone para contato (apenas números):");
                 telefone = in.nextInt();
@@ -32,7 +32,7 @@ public class CadastroUsuarioView {
                     System.out.println("\nUsuário cadastrado com sucesso! Por favor faça o login.");
                     menuCadastro = false;
                 } catch (Exception e) {
-                    throw new Exception("Não foi possível fazer o cadastro, tente novamente" + e.getMessage());
+                    System.err.println("Não foi possível fazer o cadastro, tente novamente. " + e.getMessage());
                 }
             }
         } catch (InputMismatchException e) {
