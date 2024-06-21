@@ -40,7 +40,7 @@ public class UsuarioComumView {
                             produtoAdicionar = controller.buscarProduto(produtoBuscarNome).get();
 
                             if (produtoAdicionar.getQtd() > 0) {
-                                System.out.println("\n" + produtoAdicionar.imprimeProduto());
+                                System.out.println("\n" + produtoAdicionar.imprimeProdutoParaUsuario());
                                 System.out.println("Deseja adicionar o item ao carrinho?(S/N)");
 
                                 if (in.nextLine().equalsIgnoreCase("S")) {
@@ -92,7 +92,9 @@ public class UsuarioComumView {
                                         try {
                                             controller.finalizarVenda(usuarioSelecionado.getCarrinho(), usuarioSelecionado);
                                             usuarioSelecionado.getCarrinho().clear();
+                                            controller.salvarDados();
                                             menuCarrinho = false;
+                                            System.out.println("Venda realizada com sucesso!");
                                         } catch (Exception e) {
                                             throw new Exception("Não foi possível finalizar a venda" + e.getMessage());
                                         }
@@ -126,6 +128,7 @@ public class UsuarioComumView {
                                     if (in.nextLine().equalsIgnoreCase("S")) {
                                         usuarioSelecionado.getCarrinho().clear();
                                         menuCarrinho = false;
+                                        controller.salvarDados();
                                     }
                                     break;
 

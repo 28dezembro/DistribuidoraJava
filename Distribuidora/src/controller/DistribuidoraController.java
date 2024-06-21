@@ -250,7 +250,7 @@ public class DistribuidoraController {
     public float calculaTotalVenda(List<Produto> carrinho) throws Exception{
         float valorTotal = 0f;
         for (Produto produto : carrinho) {
-            valorTotal += produto.getPreco();
+            valorTotal += (produto.getPreco()*produto.getQtd());
         }
         return valorTotal;
     }

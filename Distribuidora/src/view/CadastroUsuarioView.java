@@ -21,10 +21,10 @@ public class CadastroUsuarioView {
                 senha = in.nextLine();
                 System.out.println("\nEm que endereço reside?: ");
                 endereco = in.nextLine();
-                System.out.println("\nTelefone para contato: ");
-                telefone = in.nextInt();
                 System.out.println("Qual o DDD do seu telefone?");
                 ddd = in.nextInt();
+                System.out.println("\nTelefone para contato (apenas números):");
+                telefone = in.nextInt();
                 in.nextLine(); // Limpar o buffer
 
                 try {

@@ -2,6 +2,24 @@
 Recibo do Pedido n°1
 Comprador: André lucas
 Contato: (41)998998989
-Endereço: rua tchurusbago
-Produtos : Vinho Campo Largo: R$14.9
-Total R$14.9
+Endereço: rua tchurusbago, 123
+Produtos : vinho campo largo: Preço por unidade R$14.9 X2
+vinho campo largo: Preço por unidade R$14.9 X2
+Total R$29.8
+////////////////////////////////////////////////////
+Recibo do Pedido n°2
+Comprador: André lucas
+Contato: (41)998998989
+Endereço: rua tchurusbago, 123
+Produtos : vinho campo largo: Preço por unidade R$14.9 X2
+vinho campo largo: Preço por unidade R$14.9 X2
+vinho campo largo: Preço por unidade R$14.9 X4
+bolacha passatempo: Preço por unidade R$4.9 X10
+Total R$49.6
+////////////////////////////////////////////////////
+Recibo do Pedido n°3
+Comprador: André lucas
+Contato: (41)998998989
+Endereço: rua tchurusbago, 123
+Produtos : vinho campo largo: Preço por unidade R$14.9 X5
+Total R$74.5

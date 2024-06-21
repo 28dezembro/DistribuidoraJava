@@ -8,7 +8,7 @@ public abstract class Usuario implements Serializable {
     protected boolean admin;
 
     public Usuario(String nomeCompleto, String login, String senha, boolean admin) {
-        this.nomeCompleto = Util.formataString(nomeCompleto);
+        this.nomeCompleto = nomeCompleto;
         this.login = Util.formataString(login);
         this.senha = senha;
         this.admin = admin;

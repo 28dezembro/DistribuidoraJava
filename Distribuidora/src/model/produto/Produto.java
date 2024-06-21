@@ -70,6 +70,10 @@ public abstract class Produto implements IOperacoesProduto, Serializable {
     }
 
     public String imprimeProduto(){
+        return categoria + " " + nome + ":" + " Preço por unidade R$" + preco + " X" + qtd;
+    }
+
+    public String imprimeProdutoParaUsuario(){
         return categoria + " " + nome + ":" + " R$" + preco;
     }
 

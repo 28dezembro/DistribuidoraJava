@@ -6,6 +6,7 @@ import java.util.Scanner;
 import controller.DistribuidoraController;
 import model.produto.*;
 import model.usuario.*;
+import util.Util;
 import model.*;
 import view.*;
 
@@ -15,16 +16,20 @@ public class App {
         String usuario, senha;
         Usuario usuarioSelecionado;
         int opcao;
-
-        try {
-            PrintStream ps = new PrintStream(new FileOutputStream("erro.log"));
-            System.setErr(ps);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        
         Scanner in = new Scanner(System.in);
         DistribuidoraController controller = new DistribuidoraController(new ArrayList<Produto>(), new ArrayList<Usuario>(), new ArrayList<Venda>());
+
+         // Populando o sistema
+         controller.cadastrarProduto("Campo Largo", "Vinho", 14.90f, 20, true);
+         controller.cadastrarProduto("Passatempo", "Bolacha", 4.90f, 20);
+ 
+         controller.cadastrarUsuario("Admin", "a", "a"); //Admin
+         controller.cadastrarUsuario("André lucas", "andre", "a", "rua tchurusbago", 998998989, 41);
+         controller.cadastrarUsuario("Marcão", "Marcos", "123", "rua tchurusbago", 998998989, 41);
+         controller.cadastrarUsuario("thierry", "tito", "1234","rua tchurusbago", 998998989, 41);
+         controller.cadastrarUsuario("Vagner", "vagao", "1234","rua tchurusbago", 998998989, 41);
+         // Fim da população
 
         while (login) {
             System.out.println("\nSelecione uma opção:"
@@ -38,7 +43,7 @@ public class App {
                 switch (opcao) {
                     case 1:
                         System.out.println("\nDigite seu login: ");
-                        usuario = in.nextLine();
+                        usuario = Util.formataString(in.nextLine());
 
                         if (controller.buscarUsuario(usuario).isPresent()) {
                             usuarioSelecionado = controller.buscarUsuario(usuario).get();

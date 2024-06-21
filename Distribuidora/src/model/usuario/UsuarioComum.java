@@ -41,7 +41,7 @@ public class UsuarioComum extends Usuario{
 
         float valorTotal = 0f;
         for (Produto produto : carrinho) {
-            valorTotal += produto.getPreco();
+            valorTotal += (produto.getPreco()*produto.getQtd());
         }
 
         return produtos + "\nTotal R$" + valorTotal;
@@ -50,7 +50,7 @@ public class UsuarioComum extends Usuario{
     public String imprimeProdutosVenda(Venda venda) {
         float valorTotal = 0f;
         for (Produto produto : venda.getProdutos()) {
-            valorTotal += produto.getPreco();
+            valorTotal += (produto.getPreco()*produto.getQtd());
         }
         String produtos = venda.getProdutos().stream()
         .map(produto -> produto.imprimeProduto())
