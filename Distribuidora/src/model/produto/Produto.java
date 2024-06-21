@@ -1,7 +1,8 @@
 package model.produto;
 
+import model.IOperacoesProduto;
 
-public abstract class Produto {
+public abstract class Produto implements IOperacoesProduto {
     protected String nome, categoria;
     protected float preco;
     protected int codigo, qtd;
@@ -15,8 +16,6 @@ public abstract class Produto {
         this.qtd = qtd;
         this.ativo = true;
     }
-
-    public abstract Produto copiarProduto(Produto produto);
 
     public boolean reduzirEstoque(int quantidade){
         if (qtd > 0) {
@@ -80,6 +79,20 @@ public abstract class Produto {
 
     public String imprimeProduto(){
         return categoria + " " + nome + ":" + " R$" + preco;
+    }
+
+    public String produtoDisponivel(){
+        return categoria + " " + nome + ":"
+        + "\nPreço: " + preco;
+    }
+
+    public String imprimeProdutoEstoque(){
+        return "Codigo: " + codigo +
+            "\nProduto " + nome + ":" +
+            "\nCategoria: " + categoria + 
+            "\nQuantidade em estoque: " + qtd +
+            "\nPreco: R$" + preco +
+            "\n///////////////////////////////////";
     }
 
     @Override

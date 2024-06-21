@@ -23,7 +23,8 @@ public class Venda {
     }
 
     public String geraReciboVenda(Venda venda){
-        return "Recibo do Pedido n°" + venda.getCodigo() +
+        return "////////////////////////////////////////////////////"+
+        "\nRecibo do Pedido n°" + venda.getCodigo() +
         "\nComprador: " + venda.getUsuario().getNomeCompleto() + 
         "\nContato: " + "("+venda.getUsuario().getDdd()+")" + venda.getUsuario().getTelefone() +
         "\nEndereço: " + venda.getUsuario().getEndereco() + 

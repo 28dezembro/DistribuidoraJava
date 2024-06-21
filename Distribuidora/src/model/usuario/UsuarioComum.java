@@ -2,6 +2,7 @@ package model.usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import model.Venda;
@@ -24,6 +25,12 @@ public class UsuarioComum extends Usuario{
 
     public static UsuarioComum cadastrarUsuarioComum(String nomeCompleto, String login, String senha, String endereco, int telefone, int ddd){
         return new UsuarioComum(nomeCompleto, login, senha, false, endereco, telefone, ddd, new ArrayList<>(), new ArrayList<>());
+    }
+
+    public Optional<Produto> buscarProdutoCarrinho(String nome){
+        return carrinho.stream()
+        .filter(produtoCarrinho -> produtoCarrinho.getNome().equalsIgnoreCase(nome))
+        .findFirst();
     }
 
     public String imprimeCarrinho(){
@@ -51,7 +58,7 @@ public class UsuarioComum extends Usuario{
         return produtos + "\nTotal R$" + valorTotal;
     }
 
-    public String imprimePedidos(){
+    public String imprimePedidos() {
         return pedidos.stream()
         .map(pedido -> pedido.geraReciboVenda(pedido))
         .collect(Collectors.joining("\n\n"));

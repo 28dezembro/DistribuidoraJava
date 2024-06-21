@@ -10,12 +10,12 @@ import model.usuario.*;
 import util.Recibo;
 
 public class DistribuidoraController {
-    private List<Produto> produtos;
+    private List<Produto> estoque;
     private List<Usuario> usuarios;
     private List<Venda> vendas;
 
-    public DistribuidoraController(List<Produto> produtos, List<Usuario> usuarios, List<Venda> vendas) {
-        this.produtos = produtos;
+    public DistribuidoraController(List<Produto> estoque, List<Usuario> usuarios, List<Venda> vendas) {
+        this.estoque = estoque;
         this.usuarios = usuarios;
         this.vendas = vendas;
     }
@@ -28,15 +28,15 @@ public class DistribuidoraController {
     }
 
     private int gerarCodigoProduto(){
-        return produtos.stream()
+        return estoque.stream()
         .mapToInt(p -> p.getCodigo())
         .max()
         .orElse(0) + 1;
     }
 
     public Optional<Produto> buscarProduto(String nome){
-        return produtos.stream()
-        .filter(produtoEstoque -> produtoEstoque.getNome().equals(nome))
+        return estoque.stream()
+        .filter(produtoEstoque -> produtoEstoque.getNome().equalsIgnoreCase(nome))
         .findFirst();
     }
 
@@ -48,31 +48,55 @@ public class DistribuidoraController {
 
     public Optional<Usuario> buscarUsuario(String login){
         return usuarios.stream()
-        .filter(usuarioSistema -> usuarioSistema.getLogin().equals(login))
+        .filter(usuarioSistema -> usuarioSistema.getLogin().equalsIgnoreCase(login))
         .findFirst();
     }
 
-    public void cadastrarProduto(String nome, String categoria, float preco, int qtd){
+    public void cadastrarProduto(String nome, String categoria, float preco, int qtd) throws Exception{
         if (buscarProduto(nome).isEmpty()) {
-            produtos.add(Comida.cadastrarComida(nome, categoria, preco, gerarCodigoProduto(), qtd));
+            try {
+                estoque.add(Comida.cadastrarComida(nome, categoria, preco, gerarCodigoProduto(), qtd));
+            } catch (Exception e) {
+                throw new Exception("Não foi possível cadastrar o produto" + e.getMessage());
+            }
+        }else{
+            throw new Exception("Produto já existente em estoque");
         }
     }
 
-    public void cadastrarProduto(String nome, String categoria, float preco, int qtd, boolean alcoolico){
+    public void cadastrarProduto(String nome, String categoria, float preco, int qtd, boolean alcoolico) throws Exception{
         if (buscarProduto(nome).isEmpty()) {
-            produtos.add(Bebida.cadastrarBebida(nome, categoria, preco, gerarCodigoProduto(), qtd, alcoolico));
+            try {
+                estoque.add(Bebida.cadastrarBebida(nome, categoria, preco, gerarCodigoProduto(), qtd, alcoolico));
+            } catch (Exception e) {
+                throw new Exception("Não foi possível cadastrar o produto" + e.getMessage());
+            }   
+        }else{
+            throw new Exception("Produto já existente em estoque");
         }
     }
 
-    public void cadastrarUsuario(String nomeCompleto, String login, String senha, String endereco, int telefone, int ddd){
+    public void cadastrarUsuario(String nomeCompleto, String login, String senha, String endereco, int telefone, int ddd) throws Exception{
         if (buscarUsuario(login).isEmpty()) {
-            usuarios.add(UsuarioComum.cadastrarUsuarioComum(nomeCompleto, login, senha, endereco, telefone, ddd));
+            try {
+                usuarios.add(UsuarioComum.cadastrarUsuarioComum(nomeCompleto, login, senha, endereco, telefone, ddd));
+            } catch (Exception e) {
+                throw new Exception("Não foi possível cadastrar o usuário" + e.getMessage());
+            }
+        }else{
+            throw new Exception("Usuário já existe no sistema");
         }
     }
 
-    public void cadastrarUsuario(String nomeCompleto, String login, String senha){
+    public void cadastrarUsuario(String nomeCompleto, String login, String senha) throws Exception{
         if (buscarUsuario(login).isEmpty()) {
-            usuarios.add(Admin.cadastrarAdmin(nomeCompleto, login, senha));
+            try {
+                usuarios.add(Admin.cadastrarAdmin(nomeCompleto, login, senha));
+            } catch (Exception e) {
+                throw new Exception("Não foi possível cadastrar o usuário" + e.getMessage());
+            }
+        }else{
+            throw new Exception("Usuário já existe no sistema");
         }
     }
 
@@ -88,11 +112,11 @@ public class DistribuidoraController {
             } 
             return novaVenda;
         } else {
-            throw new Exception("Venda já existe");
+            throw new Exception("Venda já existe no sistema");
         }
     }
 
-    private Produto copiarProduto(Produto produto)throws Exception {
+    private Produto copiarProduto(Produto produto) throws Exception {
         if (produto instanceof Comida) {
             Comida comida = (Comida) produto;
             return comida.copiarProduto(produto);
@@ -117,7 +141,7 @@ public class DistribuidoraController {
         }
     }
 
-    public void alterarTipoUsuario(String login, String novoTipo) {
+    public void alterarTipoUsuario(String login, String novoTipo){
         Optional<Usuario> usuarioOptional = buscarUsuario(login);
         usuarioOptional.ifPresent(usuario -> {
             if (usuario instanceof Admin) {
@@ -126,12 +150,20 @@ public class DistribuidoraController {
         });
     }
 
-    public void excluirUsuario(String login) {
-        usuarios.removeIf(u -> u.getLogin().equals(login));
+    public void excluirUsuario(String login) throws Exception{
+        try {
+            usuarios.removeIf(u -> u.getLogin().equals(login));
+        } catch (Exception e) {
+            throw new Exception("Não foi possível remover o usuário: " + e.getMessage());
+        }
     }
     
-    public void reporEstoque(String nomeProduto, int quantidade) {
-        buscarProduto(nomeProduto).get().aumentarEstoque(quantidade);
+    public void reporEstoque(String nomeProduto, int quantidade) throws Exception {
+        try {
+            buscarProduto(nomeProduto).get().aumentarEstoque(quantidade);
+        } catch (Exception e) {
+            throw new Exception("Não foi possível repor o estoque do produto" + e.getMessage());
+        }
     }
     
     public void ativarDesativarProduto(String nomeProduto, boolean ativar) {
@@ -140,19 +172,21 @@ public class DistribuidoraController {
     
     public Produto adicionarProdutoCarrinho(Produto produto, int quantidade) throws Exception {
         Produto produtoEstoque = buscarProduto(produto.getNome()).get();
-        if (produtoEstoque.getQtd() < quantidade) {
+
+        if (produtoEstoque.getQtd() >= quantidade) {
+            try {
+                Produto produtoCarrinho = copiarProduto(produtoEstoque);
+                produtoCarrinho.setQtd(quantidade);
+                return produtoCarrinho;
+            } catch (Exception e) {
+                throw new Exception("Não possível adicionar o produto no carrinho");
+            }
+        }else{
             throw new Exception("Quantidade indisponível");
         }
-        Produto produtoCarrinho = copiarProduto(produtoEstoque);
-        produtoCarrinho.setQtd(quantidade);
-        return produtoCarrinho;
-    }
-
-    public void removeProdutoCarrinho(Produto produto){
-
     }
     
-    public float calculaTotalVenda(List<Produto> carrinho){
+    public float calculaTotalVenda(List<Produto> carrinho) throws Exception{
         float valorTotal = 0f;
         for (Produto produto : carrinho) {
             valorTotal += produto.getPreco();
@@ -171,7 +205,7 @@ public class DistribuidoraController {
             //Reduz estoque da distribuidora baseado na quantidade de cada produto no carrinho;
             carrinho.stream()
             .forEach(produtoCarrinho -> {
-                produtos.stream()
+                estoque.stream()
                     .filter(produtoEstoque -> produtoEstoque.getCodigo() == produtoCarrinho.getCodigo())
                     .findFirst()
                     .ifPresent(produtoEstoque -> produtoEstoque.reduzirEstoque(produtoCarrinho.getQtd()));
@@ -187,54 +221,61 @@ public class DistribuidoraController {
     }
     
     public List<Bebida> listarBebidas() {
-        return produtos.stream()
+        return estoque.stream()
         .filter(p -> p instanceof Bebida)
         .map(p -> (Bebida) p)
         .collect(Collectors.toList());
     }
 
     public List<Comida> listarComidas() {
-        return produtos.stream()
+        return estoque.stream()
         .filter(p -> p instanceof Comida)
         .map(p -> (Comida) p)
         .collect(Collectors.toList());
     }
 
-    public void alterarNomeProduto(Produto produto, String novoNome) {
-        produto.setNome(novoNome);
+    public void alterarNomeProduto(String nome, String alteraNome) {
+        buscarProduto(nome).get().setNome(alteraNome);
     }
 
-    public void alterarCategoriaProduto(Produto produto, String novaCategoria) {
-        produto.setCategoria(novaCategoria);
-        System.out.println("Categoria do produto alterada para " + novaCategoria);
+    public void alterarCategoriaProduto(String nome, String alteraCategoria) {
+        buscarProduto(nome).get().setCategoria(alteraCategoria);
     }
 
-    public void alterarPrecoProduto(Produto produto, float novoPreco) {
-        produto.setPreco(novoPreco);
-        System.out.println("Preço do produto alterado para " + novoPreco);
+    public void alterarPrecoProduto(String nome, float alteraPreco) {
+        buscarProduto(nome).get().setPreco(alteraPreco);
     }
 
-    public void excluirProduto(Produto produto) {
-        
-        if (!produtos.contains(produto)) {
-            System.out.println("Produto não encontrado.");
-            return;
-        }
-    
-        if (produto.getQtd() == 0) {
-            produtos.remove(produto);
-            System.out.println("Produto " + produto.getNome() + " excluído com sucesso.");
+    public void excluirProduto(String nome) throws Exception{
+        if (buscarProduto(nome).get().getQtd() == 0) {
+            try {
+                estoque.remove(buscarProduto(nome).get());
+            } catch (Exception e) {
+                throw new Exception("Erro inesperado ao excluir produto" + e.getMessage());
+            }
         } else {
-            System.out.println("Não é possível excluir o produto " + produto.getNome() + " porque o estoque não está zerado.");
+            throw new Exception("Impossível excluir o produto pois seu estoque não está zerado");
         }
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public String imprimeEstoque(){
+        return estoque.stream()
+        .map(produtoEstoque -> produtoEstoque.imprimeProdutoEstoque())
+        .collect(Collectors.joining("\n"));
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public String imprimePedidos(){
+        return vendas.stream()
+        .map(venda -> venda.geraReciboVenda(venda))
+        .collect(Collectors.joining("\n"));
+    }
+
+    public List<Produto> getEstoque() {
+        return estoque;
+    }
+
+    public void setProdutos(List<Produto> estoque) {
+        this.estoque = estoque;
     }
 
     public List<Usuario> getUsuarios() {
@@ -247,7 +288,7 @@ public class DistribuidoraController {
     
     @Override
     public String toString() {
-        return "DistribuidoraController [produtos=" + produtos + ", usuarios=" + usuarios + "]";
+        return "DistribuidoraController [produtos=" + estoque + ", usuarios=" + usuarios + "]";
     }
  
 }
