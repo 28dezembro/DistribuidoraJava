@@ -1,5 +1,3 @@
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -19,6 +17,17 @@ public class App {
         
         Scanner in = new Scanner(System.in);
         DistribuidoraController controller = new DistribuidoraController(new ArrayList<Produto>(), new ArrayList<Usuario>(), new ArrayList<Venda>());
+
+        // Populando o sistema - Dá um erro no começo mas após popular e apagar a população abaixo ele roda sem erros
+        controller.cadastrarProduto("Campo Largo", "Vinho", 14.90f, 20, true);
+        controller.cadastrarProduto("Passatempo", "Bolacha", 4.90f, 20);
+
+        controller.cadastrarUsuario("Admin", "a", "a"); //Admin
+        controller.cadastrarUsuario("André lucas", "andre", "a", "rua tchurusbago", 998998989, 41);
+        controller.cadastrarUsuario("Marcão", "Marcos", "123", "rua tchurusbago", 998998989, 41);
+        controller.cadastrarUsuario("thierry", "tito", "1234","rua tchurusbago", 998998989, 41);
+	    controller.cadastrarUsuario("Vagner", "vagao", "1234","rua tchurusbago", 998998989, 41);
+        // Fim da população
 
         while (login) {
             System.out.println("\nSelecione uma opção:"
