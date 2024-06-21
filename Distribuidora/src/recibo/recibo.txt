@@ -1,0 +1,7 @@
+////////////////////////////////////////////////////
+Recibo do Pedido n°1
+Comprador: André lucas
+Contato: (41)998998989
+Endereço: rua tchurusbago
+Produtos : vinho campo largo: Preço por unidade R$14.9 X2
+Total R$29.8
