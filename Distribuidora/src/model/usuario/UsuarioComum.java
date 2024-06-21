@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import model.Venda;
 import model.produto.Produto;
+import util.Util;
 
 public class UsuarioComum extends Usuario{
     protected String endereco;
@@ -16,7 +17,7 @@ public class UsuarioComum extends Usuario{
 
     public UsuarioComum(String nomeCompleto, String login, String senha, boolean admin, String endereco, int telefone, int ddd, List<Venda> pedidos, List<Produto> carrinho) {
         super(nomeCompleto, login, senha, admin);
-        this.endereco = endereco;
+        this.endereco = Util.formataString(endereco);
         this.telefone = telefone;
         this.ddd = ddd;
         this.pedidos = pedidos;

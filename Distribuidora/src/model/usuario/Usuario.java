@@ -1,14 +1,15 @@
 package model.usuario;
 
 import java.io.Serializable;
+import util.Util;
 
 public abstract class Usuario implements Serializable {
     protected String nomeCompleto, login, senha;
     protected boolean admin;
 
     public Usuario(String nomeCompleto, String login, String senha, boolean admin) {
-        this.nomeCompleto = nomeCompleto;
-        this.login = login;
+        this.nomeCompleto = Util.formataString(nomeCompleto);
+        this.login = Util.formataString(login);
         this.senha = senha;
         this.admin = admin;
     }

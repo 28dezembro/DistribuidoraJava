@@ -1,8 +1,8 @@
 package model.produto;
 
 import java.io.Serializable;
-
 import model.IOperacoesProduto;
+import util.Util;
 
 public abstract class Produto implements IOperacoesProduto, Serializable {
     protected String nome, categoria;
@@ -10,8 +10,8 @@ public abstract class Produto implements IOperacoesProduto, Serializable {
     protected int codigo, qtd;
 
     public Produto(String nome, String categoria, float preco, int codigo, int qtd) {
-        this.nome = nome;
-        this.categoria = categoria;
+        this.nome = Util.formataString(nome);
+        this.categoria = Util.formataString(categoria);
         this.preco = preco;
         this.codigo = codigo;
         this.qtd = qtd;
